@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TreeCavity</string>
+    <string name="username_hint">用户名：</string>
+    <string name="password_hint">密码：</string>
 </resources>

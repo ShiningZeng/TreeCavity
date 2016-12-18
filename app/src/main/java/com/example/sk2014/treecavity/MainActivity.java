@@ -1,32 +1,77 @@
 package com.example.sk2014.treecavity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.LogInCallback;
 import com.avos.avoscloud.SaveCallback;
 
 public class MainActivity extends AppCompatActivity {
+    public EditText usernameEdit;
+    public EditText passwordEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // 测试 SDK 是否正常工作的代码
-        AVObject testObject = new AVObject("myUser");  //  myUser 相当于表名
-        testObject.put("username","HelloWorld!");   //  列以及相应的值
-        testObject.put("password", "caonima");
-        testObject.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(AVException e) {
-                if(e == null){
-                    Log.d("saved","success!");
-                }
-            }
-        });
+        usernameEdit = (EditText)findViewById(R.id.usernameEdit);
+        passwordEdit = (EditText)findViewById(R.id.passwordEdit);
 
+        Button submit = (Button)findViewById(R.id.submit);
+        if (submit != null) {
+            submit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    attemptLogin();
+                }
+            });
+        }
+
+        Button register = (Button)findViewById(R.id.register);
+        if (register != null) {
+            register.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(MainActivity.this, RegisterActivity.class));
+                    MainActivity.this.finish();
+                }
+            });
+        }
+
+    }
+
+    public void attemptLogin() {
+        String username = usernameEdit.getText().toString();
+        String password = passwordEdit.getText().toString();
+
+        if (username.equals("")) Toast.makeText(MainActivity.this, "用户名不能为空", Toast.LENGTH_SHORT).show();
+        else if (password.equals("")) Toast.makeText(MainActivity.this, "密码不能为空", Toast.LENGTH_SHORT).show();
+        else {
+            AVUser.logInInBackground(username, password, new LogInCallback<AVUser>() {
+                @Override
+                public void done(AVUser avUser, AVException e) {
+                    if (e == null) {
+                        // 登录成功 页面挑战
+                        // startActivity();
+                        Toast.makeText(MainActivity.this, "OKK", Toast.LENGTH_SHORT).show();
+                    } else {
+                        if (e.getCode() == AVException.USERNAME_PASSWORD_MISMATCH) Toast.makeText(MainActivity.this, "密码不正确", Toast.LENGTH_SHORT).show();
+                        else if (e.getCode() == AVException.USER_DOESNOT_EXIST) Toast.makeText(MainActivity.this, "用户名不存在", Toast.LENGTH_SHORT).show();
+                        else if (e.getCode() == 219) Toast.makeText(MainActivity.this, "密码失败次数过多，请稍后尝试", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
     }
 }
