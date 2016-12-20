@@ -1,5 +1,6 @@
 package com.example.sk2014.treecavity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -42,7 +43,7 @@ public class EditDiary extends AppCompatActivity {
         String title = title_edit.getText().toString();
         String content = diary_edit.getText().toString();
         if (!title.equals("") && !content.equals("")) {
-            AVObject object = new AVObject("theDairy");
+            final AVObject object = new AVObject("theDiary");
             String author = AVUser.getCurrentUser().getUsername();
             object.put("title", title);
             object.put("content", content);
@@ -51,7 +52,12 @@ public class EditDiary extends AppCompatActivity {
                 @Override
                 public void done(AVException e) {
                     if (e == null) {
-                        Toast.makeText(EditDiary.this, "update ok", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(EditDiary.this, "update ok", Toast.LENGTH_SHORT).show();
+                        String id = object.getObjectId();
+                        Intent intent = new Intent(EditDiary.this, MyDiaryDetail.class);
+                        intent.putExtra("objectId", id);
+                        startActivity(intent);
+                        EditDiary.this.finish();
                     } else {
                         Toast.makeText(EditDiary.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }

@@ -10,16 +10,18 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.sk2014.treecavity.MyDiaryHistory">
 
+    <!--
     <TextView
         android:text="这里是自己写过的日志的历史界面"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+        -->
 
-    <Button
-        android:id="@+id/button"
-        android:text="假设这里是一条我写的日记的ListView"
-        android:layout_alignParentBottom="true"
+    <ListView
+        android:id="@+id/diary_list"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+
+    </ListView>
 
 </RelativeLayout>
