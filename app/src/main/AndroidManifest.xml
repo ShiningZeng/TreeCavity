@@ -24,7 +24,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".EditDiary" />
+        <activity android:name=".NavigationPage" />
+        <activity android:name=".MyDiaryHistory" />
+        <activity android:name=".OtherDiaryHistory" />
+        <activity android:name=".MyDiaryDetail" />
+        <activity android:name=".OtherDiaryDetail"></activity>
     </application>
 
 </manifest>

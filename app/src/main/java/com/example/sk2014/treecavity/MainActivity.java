@@ -64,7 +64,9 @@ public class MainActivity extends AppCompatActivity {
                     if (e == null) {
                         // 登录成功 页面挑战
                         // startActivity();
-                        Toast.makeText(MainActivity.this, "OKK", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity.this, "OKK", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(MainActivity.this, NavigationPage.class));
+                        finish();
                     } else {
                         if (e.getCode() == AVException.USERNAME_PASSWORD_MISMATCH) Toast.makeText(MainActivity.this, "密码不正确", Toast.LENGTH_SHORT).show();
                         else if (e.getCode() == AVException.USER_DOESNOT_EXIST) Toast.makeText(MainActivity.this, "用户名不存在", Toast.LENGTH_SHORT).show();
