@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
 
-    <TextView
+    >
+
+    <customComponents.CustomFontTextView
+        android:layout_marginTop="10dp"
         android:id="@+id/title"
-        android:textSize="20sp"
-        android:layout_weight="2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content" />
+        android:textSize="19sp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
 
-    <TextView
+    <customComponents.CustomFontTextView
+        android:textAlignment="viewEnd"
         android:id="@+id/date"
         android:textSize="16sp"
-        android:layout_weight="1"
-        android:layout_width="0dp"
+        android:textColor="@color/deepGreyColor"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
 </LinearLayout>

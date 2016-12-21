@@ -48,7 +48,7 @@ public class DiaryMessageAdapter extends BaseAdapter {
         TextView messageOwner = (TextView)view.findViewById(R.id.messageOwner);
         TextView messageContent = (TextView)view.findViewById(R.id.messageContent);
         TextView date = (TextView)view.findViewById(R.id.date);
-        messageOwner.setText(diaryMessageArrayList.get(i).messageOwner);
+        messageOwner.setText("匿名用户");
         messageContent.setText(diaryMessageArrayList.get(i).messageContent);
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append((diaryMessageArrayList.get(i).date.getYear() + 1900) + "-" + (diaryMessageArrayList.get(i).date.getMonth() + 1) + "-" + diaryMessageArrayList.get(i).date.getDate());

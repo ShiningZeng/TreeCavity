@@ -19,6 +19,12 @@ import java.util.List;
 
 import datastruct.Diary;
 import datastruct.DiaryMessage;
+import android.widget.LinearLayout;
+
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVInstallation;
+import com.avos.avoscloud.PushService;
+import com.avos.avoscloud.SaveCallback;
 
 public class NavigationPage extends AppCompatActivity {
 
@@ -27,7 +33,7 @@ public class NavigationPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_page);
 
-        Button edit_button = (Button)findViewById(R.id.edit_button);
+        LinearLayout edit_button = (LinearLayout) findViewById(R.id.edit_button);
         edit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -35,7 +41,7 @@ public class NavigationPage extends AppCompatActivity {
             }
         });
 
-        Button my_diary_button = (Button)findViewById(R.id.my_diary_button);
+        LinearLayout my_diary_button = (LinearLayout) findViewById(R.id.my_diary_button);
         my_diary_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,7 +49,7 @@ public class NavigationPage extends AppCompatActivity {
             }
         });
 
-        Button other_diary_button = (Button)findViewById(R.id.other_diary_button);
+        LinearLayout other_diary_button = (LinearLayout) findViewById(R.id.other_diary_button);
         other_diary_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,7 +57,7 @@ public class NavigationPage extends AppCompatActivity {
             }
         });
 
-        Button request_diary_button = (Button)findViewById(R.id.request_diary_button);
+        LinearLayout request_diary_button = (LinearLayout) findViewById(R.id.request_diary_button);
         request_diary_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,5 +89,12 @@ public class NavigationPage extends AppCompatActivity {
                 });
             }
         });
+        AVInstallation.getCurrentInstallation().saveInBackground(new SaveCallback() {
+            @Override
+            public void done(AVException e) {
+                String installationId = AVInstallation.getCurrentInstallation().getInstallationId();
+            }
+        });
+        PushService.setDefaultPushCallback(this, NavigationPage.class);
     }
 }
