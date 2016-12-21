@@ -28,6 +28,7 @@
         android:layout_height="wrap_content"
         android:text="@string/diary_title"/>
     <EditText
+        android:paddingLeft="5dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/textview_border"
         android:id="@+id/title_edit"
@@ -40,6 +41,7 @@
             android:layout_height="wrap_content"
             android:text="@string/diary_content"/>
     <EditText
+        android:padding="5dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/textview_border"
         android:id="@+id/diary_edit"
