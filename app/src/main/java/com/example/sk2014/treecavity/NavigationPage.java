@@ -5,6 +5,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.FindCallback;
+import com.avos.avoscloud.SaveCallback;
+
+import java.util.Arrays;
+import java.util.List;
+
+import datastruct.Diary;
+import datastruct.DiaryMessage;
 
 public class NavigationPage extends AppCompatActivity {
 
@@ -41,7 +55,32 @@ public class NavigationPage extends AppCompatActivity {
         request_diary_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(NavigationPage.this, OtherDiaryDetail.class));
+
+//                AVQuery<AVObject> historyDiary = new AVQuery<AVObject>("otherDiaryHistory");
+//                historyDiary.whereEqualTo("owner", AVUser.getCurrentUser().getUsername());
+
+                AVQuery<AVObject> allDiary = new AVQuery<>("theDiary");
+                allDiary.whereNotEqualTo("author", AVUser.getCurrentUser().getUsername());
+
+                allDiary.findInBackground(new FindCallback<AVObject>() {
+                    @Override
+                    public void done(List<AVObject> list, AVException e) {
+                        int random = (int)(Math.random()*list.size());
+                        AVObject obj = list.get(random);
+                        Intent intent = new Intent(NavigationPage.this, OtherDiaryDetail.class);
+                        Diary diary = new Diary(
+                                obj.getString("author"),
+                                obj.getString("title"),
+                                obj.getString("content"),
+                                obj.getObjectId(),
+                                obj.getCreatedAt());
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("object", diary);
+                        bundle.putInt("tag", 2);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                });
             }
         });
     }

@@ -64,14 +64,20 @@ public class OtherDiaryHistory extends AppCompatActivity {
         });
     }
     private void initDiaries() {
-        AVQuery<AVObject> query = new AVQuery<>("theDiary");
-        query.whereEqualTo("author", AVUser.getCurrentUser().getUsername());
+        AVQuery<AVObject> query = new AVQuery<>("otherDiaryHistory");
+        query.whereEqualTo("owner", AVUser.getCurrentUser().getUsername());
+        query.include("diary");
         query.findInBackground(new FindCallback<AVObject>() {
             @Override
             public void done(List<AVObject> list, AVException e) {
                 for (AVObject obj : list) {
-                    diaryAdapter.diaryArrayList.add(new Diary(obj.getString("author"), obj.getString("title"), obj.getString("content"), obj.getObjectId(), obj.getCreatedAt()));
-                }
+                    AVObject diary = obj.getAVObject("diary");
+                    diaryAdapter.diaryArrayList.add(
+                            new Diary(diary.getString("author"),
+                                    diary.getString("title"),
+                                    diary.getString("content"),
+                                    diary.getObjectId(),
+                                    diary.getCreatedAt()));}
                 listView.setAdapter(diaryAdapter);
             }
         });

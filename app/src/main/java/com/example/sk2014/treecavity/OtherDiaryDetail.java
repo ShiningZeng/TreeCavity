@@ -48,9 +48,26 @@ public class OtherDiaryDetail extends AppCompatActivity {
         setContentView(R.layout.activity_other_diary_detail);
 
         initVariables();
+        if (bundle.getInt("tag") == 2)
+            saveDiaryHistory();
         initUI();
         initDiscussions();
         initEventListener();
+    }
+    private void saveDiaryHistory() {
+        AVObject historyToSave = new AVObject("otherDiaryHistory");
+        historyToSave.put("diary", AVObject.createWithoutData("theDiary", diary.objectId));
+        historyToSave.put("owner", AVUser.getCurrentUser().getUsername());
+        historyToSave.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(AVException e) {
+                if (e == null) {
+
+                } else {
+                    Toast.makeText(OtherDiaryDetail.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
     private void initVariables() {
         bundle = this.getIntent().getExtras();
