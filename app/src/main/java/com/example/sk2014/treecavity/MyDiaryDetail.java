@@ -22,17 +22,13 @@ public class MyDiaryDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_diary_detail);
 
-        String objectId = getIntent().getStringExtra("objectId");
-        if (!objectId.equals("")) {
-            AVQuery<AVObject> avQuery = new AVQuery<>("theDiary");
-            avQuery.getInBackground(objectId, new GetCallback<AVObject>() {
-                @Override
-                public void done(AVObject avObject, AVException e) {
-                    diary = new Diary(avObject.getString("author"), avObject.getString("title"), avObject.getString("content"), avObject.getObjectId(), avObject.getCreatedAt());
-                    updateUI();
-                }
-            });
-        }
+        Bundle bundle = getIntent().getExtras();
+
+        diary = (Diary) bundle.getSerializable("object");
+        updateUI();
+
+
+
 
 
     }
