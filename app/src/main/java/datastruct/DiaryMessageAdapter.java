@@ -1,9 +1,13 @@
 package datastruct;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
+
+import com.example.sk2014.treecavity.R;
 
 import java.util.ArrayList;
 
@@ -38,6 +42,17 @@ public class DiaryMessageAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         // to be continue
-        return null;
+        if (view == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.message_item_layout, null);
+        }
+        TextView messageOwner = (TextView)view.findViewById(R.id.messageOwner);
+        TextView messageContent = (TextView)view.findViewById(R.id.messageContent);
+        TextView date = (TextView)view.findViewById(R.id.date);
+        messageOwner.setText(diaryMessageArrayList.get(i).messageOwner);
+        messageContent.setText(diaryMessageArrayList.get(i).messageContent);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append((diaryMessageArrayList.get(i).date.getYear() + 1900) + "-" + (diaryMessageArrayList.get(i).date.getMonth() + 1) + "-" + diaryMessageArrayList.get(i).date.getDate());
+        date.setText(stringBuilder.toString());
+        return view;
     }
 }
