@@ -72,6 +72,7 @@ public class MyService extends Service {
             task = new TimerTask() {
                 @Override
                 public void run() {
+                    Log.d("a","m");
                     AVQuery<AVObject> avQuery = new AVQuery<>("theDiaryMessage");
                     avQuery.whereEqualTo("author", AVUser.getCurrentUser().get("username")
                             .toString());
