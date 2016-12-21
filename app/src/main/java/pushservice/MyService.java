@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Binder;
 import android.os.IBinder;
+import android.util.Log;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
@@ -52,6 +53,7 @@ public class MyService extends Service {
             editor.putInt("listitem", 0);
             editor.commit();
         }
+
     }
 
     public  void request() {
@@ -81,6 +83,7 @@ public class MyService extends Service {
                                 if (itemcount < list.size()) {
                                     editor.putInt("listitem", list.size());
                                     editor.commit();
+                                    itemcount = list.size();
                                     Notification.Builder builder = new Notification.Builder(mContext);
                                     builder.setContentTitle("一条新消息")
                                             .setTicker("一条新消息")

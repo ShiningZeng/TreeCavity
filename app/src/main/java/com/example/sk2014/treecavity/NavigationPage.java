@@ -10,6 +10,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVInstallation;
+import com.avos.avoscloud.PushService;
+import com.avos.avoscloud.SaveCallback;
+
 import pushservice.MyService;
 
 public class NavigationPage extends AppCompatActivity {
@@ -61,5 +66,12 @@ public class NavigationPage extends AppCompatActivity {
                 startActivity(new Intent(NavigationPage.this, OtherDiaryDetail.class));
             }
         });
+        AVInstallation.getCurrentInstallation().saveInBackground(new SaveCallback() {
+            @Override
+            public void done(AVException e) {
+                String installationId = AVInstallation.getCurrentInstallation().getInstallationId();
+            }
+        });
+        PushService.setDefaultPushCallback(this, MainActivity.class);
     }
 }
