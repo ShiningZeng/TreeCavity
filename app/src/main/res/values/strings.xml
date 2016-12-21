@@ -9,4 +9,8 @@
     <string name="app_title">欢迎来到我们的日记本</string>
     <string name="back_to_login">返回登录界面</string>
     <string name="clear_register_editor">清空</string>
+    <string name="newDiary">编辑新的日记</string>
+    <string name="myDiary">我的日记列表</string>
+    <string name="fetchDiary">抽取他人日记</string>
+    <string name="otherDiary">他人日记列表</string>
 </resources>

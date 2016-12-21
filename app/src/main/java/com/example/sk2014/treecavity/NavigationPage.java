@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 public class NavigationPage extends AppCompatActivity {
 
@@ -13,7 +14,7 @@ public class NavigationPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_page);
 
-        Button edit_button = (Button)findViewById(R.id.edit_button);
+        LinearLayout edit_button = (LinearLayout) findViewById(R.id.edit_button);
         edit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -21,7 +22,7 @@ public class NavigationPage extends AppCompatActivity {
             }
         });
 
-        Button my_diary_button = (Button)findViewById(R.id.my_diary_button);
+        LinearLayout my_diary_button = (LinearLayout) findViewById(R.id.my_diary_button);
         my_diary_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -29,7 +30,7 @@ public class NavigationPage extends AppCompatActivity {
             }
         });
 
-        Button other_diary_button = (Button)findViewById(R.id.other_diary_button);
+        LinearLayout other_diary_button = (LinearLayout) findViewById(R.id.other_diary_button);
         other_diary_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -37,7 +38,7 @@ public class NavigationPage extends AppCompatActivity {
             }
         });
 
-        Button request_diary_button = (Button)findViewById(R.id.request_diary_button);
+        LinearLayout request_diary_button = (LinearLayout) findViewById(R.id.request_diary_button);
         request_diary_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

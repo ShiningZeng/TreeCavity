@@ -6,4 +6,9 @@
     <color name="brownColor">#796763</color>
     <color name="buttonColor">#21b8c6</color>
     <color name="buttonColorDark">#4da6ae</color>
+    <color name="navColor1">#8CABC8</color>
+    <color name="navColor2">#269D81</color>
+
+    <color name="navColor3">#21b8c6</color>
+    <color name="navColor4">#aabbbb</color>
 </resources>
