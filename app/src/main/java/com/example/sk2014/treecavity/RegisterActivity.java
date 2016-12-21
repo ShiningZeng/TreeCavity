@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,18 @@ public class RegisterActivity extends AppCompatActivity {
         passwordEdit = (EditText)findViewById(R.id.passwordEdit);
 
         Button submit = (Button)findViewById(R.id.submit);
+
+        ImageView backToLogin = (ImageView) findViewById(R.id.back);
+        if (backToLogin != null) {
+            backToLogin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                    RegisterActivity.this.finish();
+                }
+            });
+        }
+
         if (submit != null) {
             submit.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -43,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
             });
         }
 
-        Button clear = (Button)findViewById(R.id.clear);
+        TextView clear = (TextView) findViewById(R.id.clear);
         if (clear != null) {
             clear.setOnClickListener(new View.OnClickListener() {
                 @Override

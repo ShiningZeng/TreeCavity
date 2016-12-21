@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-        Button register = (Button)findViewById(R.id.register);
+        ImageView register = (ImageView) findViewById(R.id.register);
         if (register != null) {
             register.setOnClickListener(new View.OnClickListener() {
                 @Override
