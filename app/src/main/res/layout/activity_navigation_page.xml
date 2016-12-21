@@ -21,7 +21,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@mipmap/pencil"/>
-            <TextView
+            <customComponents.CustomFontTextView
                 android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@mipmap/book"/>
-            <TextView
+            <customComponents.CustomFontTextView
                 android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@mipmap/mail"/>
-            <TextView
+            <customComponents.CustomFontTextView
                 android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@mipmap/mail_open"/>
-            <TextView
+            <customComponents.CustomFontTextView
                 android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
