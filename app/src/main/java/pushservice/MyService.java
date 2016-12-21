@@ -94,7 +94,11 @@ public class MyService extends Service {
                                     builder.setContentIntent(pIntent);
                                     NotificationManager manager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
                                     Notification notification = builder.build();
+<<<<<<< HEAD
                                     mNotificationManager = (NotificationManager) mContext.getSystemService(android.content.Context.NOTIFICATION_SERVICE);
+=======
+                                    mNotificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+>>>>>>> origin/master
                                     mNotificationManager.notify(0,notification);
                                 }
 
