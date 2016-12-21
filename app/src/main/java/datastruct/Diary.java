@@ -1,5 +1,6 @@
 package datastruct;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Date;
  *  其变量成员与数据库一致
  */
 
-public class Diary {
+public class Diary implements Serializable {
     public String author;   // 用户
     public String title;    // 日记标题
     public String content;  // 日记内容

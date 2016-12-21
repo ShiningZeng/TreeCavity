@@ -1,6 +1,8 @@
 package com.example.sk2014.treecavity;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -72,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
                         if (e.getCode() == AVException.USERNAME_PASSWORD_MISMATCH) Toast.makeText(MainActivity.this, "密码不正确", Toast.LENGTH_SHORT).show();
                         else if (e.getCode() == AVException.USER_DOESNOT_EXIST) Toast.makeText(MainActivity.this, "用户名不存在", Toast.LENGTH_SHORT).show();
                         else if (e.getCode() == 219) Toast.makeText(MainActivity.this, "密码失败次数过多，请稍后尝试", Toast.LENGTH_SHORT).show();
+                        else Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
             });

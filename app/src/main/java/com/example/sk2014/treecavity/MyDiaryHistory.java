@@ -4,21 +4,63 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
+
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.FindCallback;
+
+import java.util.List;
+
+import datastruct.Diary;
+import datastruct.DiaryAdapter;
 
 public class MyDiaryHistory extends AppCompatActivity {
+    public ListView listView;
+    public DiaryAdapter diaryAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_diary_history);
 
-        Button transfer = (Button)findViewById(R.id.button);
-        transfer.setOnClickListener(new View.OnClickListener() {
+        listView = (ListView)findViewById(R.id.diary_list);
+        diaryAdapter = new DiaryAdapter(this);
+
+        getData();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MyDiaryHistory.this, MyDiaryDetail.class));
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(MyDiaryHistory.this, MyDiaryDetail.class);
+                Diary diary = (Diary) adapterView.getAdapter().getItem(i);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("object", diary);
+                bundle.putInt("tag", 1);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
+
+
+    }
+
+    public void getData() {
+        AVQuery<AVObject> query = new AVQuery<>("theDiary");
+        query.whereEqualTo("author", AVUser.getCurrentUser().getUsername());
+        query.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+                for (AVObject obj : list) {
+                    diaryAdapter.diaryArrayList.add(new Diary(obj.getString("author"), obj.getString("title"), obj.getString("content"), obj.getObjectId(), obj.getCreatedAt()));
+                }
+                listView.setAdapter(diaryAdapter);
+            }
+        });
+
     }
 }
