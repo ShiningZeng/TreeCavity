@@ -14,7 +14,7 @@
         android:layout_marginBottom="7dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="kawa" />
+        android:text="匿名用户" />
     <ImageView
         android:id="@+id/sex"
         android:layout_toRightOf="@+id/messageOwner"
