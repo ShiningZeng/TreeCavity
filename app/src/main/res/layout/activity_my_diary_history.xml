@@ -11,6 +11,7 @@
     tools:context="com.example.sk2014.treecavity.MyDiaryHistory">
 
     <LinearLayout
+        android:id="@+id/top_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -38,7 +39,7 @@
                 />
         </LinearLayout>
         <LinearLayout
-
+            android:id="@+id/messageCenter"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="70dp"
@@ -110,12 +111,27 @@
                     />
             </LinearLayout>
         </LinearLayout>
+
+
+    </LinearLayout>
+
     <ListView
         android:layout_marginTop="20dp"
+        android:layout_below="@id/top_menu"
         android:id="@+id/diary_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
     </ListView>
-    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/register_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/top_menu"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+
 </RelativeLayout>
