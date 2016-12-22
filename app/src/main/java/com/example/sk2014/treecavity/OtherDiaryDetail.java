@@ -144,12 +144,7 @@ public class OtherDiaryDetail extends AppCompatActivity {
                     for (AVObject obj : list) {
                       //  Log.d("test", AVUser.getCurrentUser().getUsername() + " " + obj.getString("messageOwner"));
                         DiaryMessage diaryMessage = new DiaryMessage(
-<<<<<<< HEAD
-//                                diary.author,
-                                " ",
-=======
                                 diary.author,
->>>>>>> 3c6bae400ebae5b638a31c46d78c0a37ed6994b7
                                 diary.objectId,
                                 obj.getString("messageOwner"),
                                 obj.getString("messageContent"),
@@ -165,3 +160,4 @@ public class OtherDiaryDetail extends AppCompatActivity {
         });
     }
 }
+
