@@ -58,34 +58,6 @@ public class NavigationPage extends AppCompatActivity {
         public void onServiceDisconnected(ComponentName componentName) {
         }
     };
-    Handler mHandler = new Handler() {
-        public void handleMessage(Message msg) {
-            if (msg.what == 1) {
-                if (!flag) {
-                    timer.cancel();
-                } else {
-                    ms.request();
-
-                }
-            }
-            super.handleMessage(msg);
-        }
-    };
-
-    Timer timer = new Timer();
-    TimerTask task = new TimerTask() {
-        @Override
-        public void run() {
-            // 需要做的事:发送消息
-            Log.d("haha","naive");
-            Message message = new Message();
-            message.what = 1;
-            mHandler.sendMessage(message);
-        }
-    };
-    public void start() {
-        timer.schedule(task,1000,2000);
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +66,7 @@ public class NavigationPage extends AppCompatActivity {
         ms = new MyService(context);
         Intent intent = new Intent(this, MyService.class);
         bindService(intent, sc, BIND_AUTO_CREATE);
-        start();
+        ms.request();
         LinearLayout edit_button = (LinearLayout) findViewById(R.id.edit_button);
         edit_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,7 +160,7 @@ public class NavigationPage extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     unbindService(sc);
-                    flag = false;
+                    ms.setflag(false);
                     AVUser.getCurrentUser().logOut();
                     Intent intent = new Intent(NavigationPage.this, MainActivity.class);
                     NavigationPage.this.finish();
