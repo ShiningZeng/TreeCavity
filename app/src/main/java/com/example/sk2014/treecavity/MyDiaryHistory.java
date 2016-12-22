@@ -70,6 +70,7 @@ public class MyDiaryHistory extends AppCompatActivity {
         query.findInBackground(new FindCallback<AVObject>() {
             @Override
             public void done(List<AVObject> list, AVException e) {
+                Log.d("test", Integer.toString(list.size()));
                 for (AVObject obj : list) {
                     diaryAdapter.diaryArrayList.add(new Diary(obj.getString("author"), obj.getString("title"), obj.getString("content"), obj.getObjectId(), obj.getCreatedAt()));
                 }

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVUser;
 import com.example.sk2014.treecavity.R;
 
 import java.util.ArrayList;
@@ -48,7 +49,8 @@ public class DiaryMessageAdapter extends BaseAdapter {
         TextView messageOwner = (TextView)view.findViewById(R.id.messageOwner);
         TextView messageContent = (TextView)view.findViewById(R.id.messageContent);
         TextView date = (TextView)view.findViewById(R.id.date);
-        messageOwner.setText("匿名用户");
+        if (diaryMessageArrayList.get(i).messageOwner == AVUser.getCurrentUser().getUsername()) messageOwner.setText(AVUser.getCurrentUser().getUsername());
+        else messageOwner.setText("匿名用户");
         messageContent.setText(diaryMessageArrayList.get(i).messageContent);
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append((diaryMessageArrayList.get(i).date.getYear() + 1900) + "-" + (diaryMessageArrayList.get(i).date.getMonth() + 1) + "-" + diaryMessageArrayList.get(i).date.getDate());

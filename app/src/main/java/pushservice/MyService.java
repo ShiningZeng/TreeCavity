@@ -72,7 +72,6 @@ public class MyService extends Service {
             task = new TimerTask() {
                 @Override
                 public void run() {
-                    Log.d("test", "lala");
                     AVQuery<AVObject> avQuery = new AVQuery<>("theDiaryMessage");
                     avQuery.whereEqualTo("author", AVUser.getCurrentUser().get("username")
                             .toString());
@@ -81,6 +80,7 @@ public class MyService extends Service {
                         @Override
                         public void done(List<AVObject> list, AVException e) {
                             if (e == null) {
+                                Log.d("test", Integer.toString(itemcount) + " " + Integer.toString(list.size()));
                                 if (itemcount < list.size()) {
                                     editor.putInt(AVUser.getCurrentUser().getUsername(), list.size());
                                     editor.commit();
