@@ -1,10 +1,12 @@
 package datastruct;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVUser;
@@ -49,8 +51,15 @@ public class DiaryMessageAdapter extends BaseAdapter {
         TextView messageOwner = (TextView)view.findViewById(R.id.messageOwner);
         TextView messageContent = (TextView)view.findViewById(R.id.messageContent);
         TextView date = (TextView)view.findViewById(R.id.date);
-        if (diaryMessageArrayList.get(i).messageOwner == AVUser.getCurrentUser().getUsername()) messageOwner.setText(AVUser.getCurrentUser().getUsername());
-        else messageOwner.setText("匿名用户");
+        ImageView imageView = (ImageView)view.findViewById(R.id.sex);
+        if (diaryMessageArrayList.get(i).messageOwner.equals(AVUser.getCurrentUser().getUsername())) {
+            messageOwner.setText(AVUser.getCurrentUser().getUsername());
+            imageView.setImageResource(R.mipmap.app_logo);
+        }
+        else {
+            messageOwner.setText("匿名用户");
+            imageView.setImageResource(R.mipmap.ic_launcher);
+        }
         messageContent.setText(diaryMessageArrayList.get(i).messageContent);
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append((diaryMessageArrayList.get(i).date.getYear() + 1900) + "-" + (diaryMessageArrayList.get(i).date.getMonth() + 1) + "-" + diaryMessageArrayList.get(i).date.getDate());
