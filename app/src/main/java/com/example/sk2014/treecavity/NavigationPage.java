@@ -2,11 +2,18 @@ package com.example.sk2014.treecavity;
 
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.IBinder;
+import android.support.annotation.MainThread;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -44,8 +51,6 @@ public class NavigationPage extends AppCompatActivity {
         public void onServiceDisconnected(ComponentName componentName) {
         }
     };
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +58,8 @@ public class NavigationPage extends AppCompatActivity {
         context = NavigationPage.this;
         ms = new MyService(context);
         ms.request();
-
-
+        Intent intent = new Intent(this, MyService.class);
+        bindService(intent, sc, BIND_AUTO_CREATE);
 
         LinearLayout edit_button = (LinearLayout) findViewById(R.id.edit_button);
         edit_button.setOnClickListener(new View.OnClickListener() {
@@ -87,12 +92,9 @@ public class NavigationPage extends AppCompatActivity {
 
                 AVQuery<AVObject> historyDiary = new AVQuery<AVObject>("otherDiaryHistory");
                 historyDiary.whereEqualTo("owner", AVUser.getCurrentUser().getUsername());
-
                 AVQuery<AVObject> allDiary = new AVQuery<>("theDiary");
                 allDiary.whereNotEqualTo("author", AVUser.getCurrentUser().getUsername());
-
                 allDiary.whereDoesNotMatchKeyInQuery("objectId", "diaryId", historyDiary);
-
                 allDiary.findInBackground(new FindCallback<AVObject>() {
                     @Override
                     public void done(List<AVObject> list, AVException e) {
@@ -129,5 +131,46 @@ public class NavigationPage extends AppCompatActivity {
             }
         });
         PushService.setDefaultPushCallback(this, NavigationPage.class);
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        PackageManager pm = getPackageManager();
+        ResolveInfo homeInfo = pm.resolveActivity(
+                new Intent(Intent.ACTION_MAIN)
+                        .addCategory(Intent.CATEGORY_HOME), 0);
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+//            ActivityInfo ai = homeInfo.activityInfo;
+//            Intent startIntent = new Intent(Intent.ACTION_MAIN);
+//            startIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+//            startIntent
+//                    .setComponent(new ComponentName(ai.packageName, ai.name));
+//            startActivity(startIntent);
+            AlertDialog.Builder builder = new AlertDialog.Builder(
+                    NavigationPage.this);
+            builder.setTitle("提示");
+            builder.setMessage("确定注销账号吗");
+            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    unbindService(sc);
+                    AVUser.getCurrentUser().logOut();
+                    Intent intent = new Intent(NavigationPage.this, MainActivity.class);
+                    NavigationPage.this.finish();
+                    startActivity(intent);
+                    dialog.dismiss();
+                }
+            });
+            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    dialog.dismiss();
+                }
+            });
+            builder.show();
+            return true;
+        } else
+            return super.onKeyDown(keyCode, event);
     }
 }
