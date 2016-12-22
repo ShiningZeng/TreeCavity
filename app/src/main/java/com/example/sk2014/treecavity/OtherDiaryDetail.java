@@ -57,6 +57,7 @@ public class OtherDiaryDetail extends AppCompatActivity {
     private void saveDiaryHistory() {
         AVObject historyToSave = new AVObject("otherDiaryHistory");
         historyToSave.put("diary", AVObject.createWithoutData("theDiary", diary.objectId));
+        historyToSave.put("diaryId", diary.objectId);
         historyToSave.put("owner", AVUser.getCurrentUser().getUsername());
         historyToSave.saveInBackground(new SaveCallback() {
             @Override
@@ -141,9 +142,11 @@ public class OtherDiaryDetail extends AppCompatActivity {
                 if (e == null) {
                     for (AVObject obj : list) {
                         DiaryMessage diaryMessage = new DiaryMessage(
-                                diary.author,
+//                                diary.author,
+                                "",
                                 diary.objectId,
-                                obj.getString("messageOwner"),
+//                                obj.getString("messageOwner"),
+                                "匿名用户",
                                 obj.getString("messageContent"),
                                 obj.getObjectId(),
                                 obj.getCreatedAt());

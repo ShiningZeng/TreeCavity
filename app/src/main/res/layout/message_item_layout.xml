@@ -14,8 +14,8 @@
         android:layout_marginBottom="7dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
         android:text="kawa" />
+        android:text="匿名用户" />
     <!--<ImageView-->
         <!--android:id="@+id/sex"-->
         <!--android:layout_toRightOf="@+id/messageOwner"-->
@@ -23,16 +23,6 @@
         <!--android:layout_width="18dp"-->
         <!--android:layout_height="18dp"-->
         <!--android:src="@mipmap/ic_launcher" />-->
-=======
-        android:text="匿名用户" />
-    <ImageView
-        android:id="@+id/sex"
-        android:layout_toRightOf="@+id/messageOwner"
-        android:layout_marginLeft="5dp"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
-        android:src="@mipmap/ic_launcher" />
->>>>>>> 7948315f90c5b48662492b3b99d1658a724f90d2
     <TextView
         android:id="@+id/messageContent"
         android:layout_marginBottom="7dp"

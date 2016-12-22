@@ -62,29 +62,39 @@ public class NavigationPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-//                AVQuery<AVObject> historyDiary = new AVQuery<AVObject>("otherDiaryHistory");
-//                historyDiary.whereEqualTo("owner", AVUser.getCurrentUser().getUsername());
+                AVQuery<AVObject> historyDiary = new AVQuery<AVObject>("otherDiaryHistory");
+                historyDiary.whereEqualTo("owner", AVUser.getCurrentUser().getUsername());
 
                 AVQuery<AVObject> allDiary = new AVQuery<>("theDiary");
                 allDiary.whereNotEqualTo("author", AVUser.getCurrentUser().getUsername());
 
+                allDiary.whereDoesNotMatchKeyInQuery("objectId", "diaryId", historyDiary);
+
                 allDiary.findInBackground(new FindCallback<AVObject>() {
                     @Override
                     public void done(List<AVObject> list, AVException e) {
-                        int random = (int)(Math.random()*list.size());
-                        AVObject obj = list.get(random);
-                        Intent intent = new Intent(NavigationPage.this, OtherDiaryDetail.class);
-                        Diary diary = new Diary(
-                                obj.getString("author"),
-                                obj.getString("title"),
-                                obj.getString("content"),
-                                obj.getObjectId(),
-                                obj.getCreatedAt());
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("object", diary);
-                        bundle.putInt("tag", 2);
-                        intent.putExtras(bundle);
-                        startActivity(intent);
+                        if (e == null ) {
+                            if (list.size() != 0) {
+                                int random = (int)(Math.random()*list.size());
+                                AVObject obj = list.get(random);
+                                Intent intent = new Intent(NavigationPage.this, OtherDiaryDetail.class);
+                                Diary diary = new Diary(
+                                        obj.getString("author"),
+                                        obj.getString("title"),
+                                        obj.getString("content"),
+                                        obj.getObjectId(),
+                                        obj.getCreatedAt());
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable("object", diary);
+                                bundle.putInt("tag", 2);
+                                intent.putExtras(bundle);
+                                startActivity(intent);
+                            } else {
+                                Toast.makeText(NavigationPage.this, "无更多日记", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(NavigationPage.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             }
