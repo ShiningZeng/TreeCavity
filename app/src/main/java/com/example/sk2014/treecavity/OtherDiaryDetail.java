@@ -109,6 +109,7 @@ public class OtherDiaryDetail extends AppCompatActivity {
                     obj.put("messageContent", messageContent);
                     obj.put("diaryId", diary.objectId);
                     obj.put("author", diary.author);
+                    obj.put("diary", AVObject.createWithoutData("theDiary", diary.objectId));
                     obj.saveInBackground(new SaveCallback() {
                         @Override
                         public void done(AVException e) {

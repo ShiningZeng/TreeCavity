@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.icu.text.LocaleDisplayNames;
 import android.os.Binder;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -17,6 +18,7 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
+import com.example.sk2014.treecavity.MyDiaryDetail;
 import com.example.sk2014.treecavity.NavigationPage;
 import com.example.sk2014.treecavity.R;
 
@@ -24,6 +26,8 @@ import java.sql.Time;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import datastruct.Diary;
 
 public class MyService extends Service {
     private SharedPreferences sharedPreferences;
@@ -46,7 +50,6 @@ public class MyService extends Service {
     }
     public void setflag(boolean Flag) {
         flag = Flag;
-        Log.d("flag11",""+flag);
     }
 
 
@@ -63,8 +66,6 @@ public class MyService extends Service {
 
     public  void request() {
         initTime();
-
-        Log.d("test","tets");
     }
 
     public void initTime() {
@@ -77,17 +78,17 @@ public class MyService extends Service {
 
                         if (!flag)
                             timer.cancel();
-                        //Log.d("ee","navie");
                         if (AVUser.getCurrentUser() != null) {
                             AVQuery<AVObject> avQuery = new AVQuery<>("theDiaryMessage");
                             avQuery.whereEqualTo("author", AVUser.getCurrentUser().get("username")
                                     .toString());
+                            avQuery.include("diary");
                             avQuery.orderByDescending("createdAt");
                             avQuery.findInBackground(new FindCallback<AVObject>() {
                                 @Override
                                 public void done(List<AVObject> list, AVException e) {
                                     if (e == null) {
-                                        //Log.d("test", Integer.toString(itemcount) + " " + Integer.toString(list.size()));
+                                        Log.d("test", Integer.toString(itemcount) + " " + Integer.toString(list.size()));
                                         if (itemcount < list.size()) {
                                             editor.putInt(AVUser.getCurrentUser().getUsername(), list.size());
                                             editor.commit();
@@ -98,10 +99,19 @@ public class MyService extends Service {
                                                     .setContentText("有人回复了你")
                                                     .setSmallIcon(R.mipmap.app_logo)
                                                     .setAutoCancel(true);
-                                            PendingIntent pIntent = PendingIntent.getActivity(mContext, 0, new Intent(mContext, NavigationPage.class), PendingIntent.FLAG_UPDATE_CURRENT);
+                                            Intent intent = new Intent(mContext, MyDiaryDetail.class);
+                                            Bundle bundle = new Bundle();
+                                            AVObject object = list.get(0);
+                                            AVObject diary = object.getAVObject("diary");
+                                            bundle.putSerializable("object", new Diary(diary.getString("author"),
+                                                    diary.getString("title"),
+                                                    diary.getString("content"),
+                                                    diary.getObjectId(),
+                                                    diary.getCreatedAt()));
+                                            intent.putExtras(bundle);
+                                            PendingIntent pIntent = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                                             builder.setContentIntent(pIntent);
                                             Notification notification = builder.build();
-                                            // Log.d("ss","ss");
                                             mNotificationManager = (NotificationManager) mContext.getSystemService(android.content.Context.NOTIFICATION_SERVICE);
                                             mNotificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
                                             mNotificationManager.notify(0, notification);
@@ -120,7 +130,7 @@ public class MyService extends Service {
                 };
 
         if (timer != null && task != null)
-            timer.schedule(task,1000,10000);
+            timer.schedule(task,1000,15000);
 
     }
 
