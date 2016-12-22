@@ -3,6 +3,7 @@ package com.example.sk2014.treecavity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -141,12 +142,16 @@ public class OtherDiaryDetail extends AppCompatActivity {
             public void done(List<AVObject> list, AVException e) {
                 if (e == null) {
                     for (AVObject obj : list) {
+                      //  Log.d("test", AVUser.getCurrentUser().getUsername() + " " + obj.getString("messageOwner"));
                         DiaryMessage diaryMessage = new DiaryMessage(
+<<<<<<< HEAD
 //                                diary.author,
                                 " ",
+=======
+                                diary.author,
+>>>>>>> 3c6bae400ebae5b638a31c46d78c0a37ed6994b7
                                 diary.objectId,
-//                                obj.getString("messageOwner"),
-                                "匿名用户",
+                                obj.getString("messageOwner"),
                                 obj.getString("messageContent"),
                                 obj.getObjectId(),
                                 obj.getCreatedAt());

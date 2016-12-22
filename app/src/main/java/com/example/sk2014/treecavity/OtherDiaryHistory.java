@@ -1,6 +1,9 @@
 package com.example.sk2014.treecavity;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +11,7 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 
 import com.avos.avoscloud.AVException;
@@ -30,7 +34,7 @@ import datastruct.DiaryMessage;
 public class OtherDiaryHistory extends AppCompatActivity {
     // layout variables
     private ListView listView;
-
+    public ProgressBar progressView;
     //other variables
     public DiaryAdapter diaryAdapter;
 
@@ -47,6 +51,7 @@ public class OtherDiaryHistory extends AppCompatActivity {
     private void initVariables() {
         listView = (ListView) findViewById(R.id.myListView);
         diaryAdapter = new DiaryAdapter(this);
+        progressView = (ProgressBar)findViewById(R.id.register_progress);
     }
 
     private void initEventListener() {
@@ -64,6 +69,7 @@ public class OtherDiaryHistory extends AppCompatActivity {
         });
     }
     private void initDiaries() {
+        showProgress(true);
         AVQuery<AVObject> query = new AVQuery<>("otherDiaryHistory");
         query.whereEqualTo("owner", AVUser.getCurrentUser().getUsername());
         query.include("diary");
@@ -79,8 +85,32 @@ public class OtherDiaryHistory extends AppCompatActivity {
                                     diary.getObjectId(),
                                     diary.getCreatedAt()));}
                 listView.setAdapter(diaryAdapter);
+                showProgress(false);
             }
         });
+    }
+
+    private void showProgress(final boolean show) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+
+            listView.setVisibility(show ? View.INVISIBLE : View.VISIBLE);
+            listView.animate().setDuration(2000).alpha(
+                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    listView.setVisibility(show ? View.INVISIBLE : View.VISIBLE);
+                }
+            });
+
+            progressView.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
+            progressView.animate().setDuration(2200).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    progressView.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
+                }
+            });
+        }
     }
 
 }
