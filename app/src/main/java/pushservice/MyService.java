@@ -57,64 +57,41 @@ public class MyService extends Service {
     }
 
     public  void request() {
-        initTime();
-        startTime();
-        Log.d("test","tets");
-    }
-    public void startTime() {
-        if (timer != null && task != null)
-// 10秒以后执行任务；
-            timer.schedule(task, 1000, 30000);
-    }
-    public  void initTime() {
-
-            if (timer == null)
-                timer = new Timer();
-            if (task == null)
-                task = new TimerTask() {
-                    @Override
-                    public void run() {
-                        if (AVUser.getCurrentUser() != null) {
-                        AVQuery<AVObject> avQuery = new AVQuery<>("theDiaryMessage");
-                        avQuery.whereEqualTo("author", AVUser.getCurrentUser().get("username")
-                                .toString());
-                        avQuery.orderByDescending("createdAt");
-                        avQuery.findInBackground(new FindCallback<AVObject>() {
-                            @Override
-                            public void done(List<AVObject> list, AVException e) {
-                                if (e == null) {
-                                    Log.d("test", Integer.toString(itemcount) + " " + Integer.toString(list.size()));
-                                    if (itemcount < list.size()) {
-                                        editor.putInt(AVUser.getCurrentUser().getUsername(), list.size());
-                                        editor.commit();
-                                        itemcount = list.size();
-                                        Notification.Builder builder = new Notification.Builder(mContext);
-                                        builder.setContentTitle("一条新消息")
-                                                .setTicker("一条新消息")
-                                                .setContentText("有人回复了你")
-                                                .setSmallIcon(R.mipmap.app_logo)
-                                                .setAutoCancel(true);
-                                        PendingIntent pIntent = PendingIntent.getActivity(mContext, 0, new Intent(mContext, NavigationPage.class), PendingIntent.FLAG_UPDATE_CURRENT);
-                                        builder.setContentIntent(pIntent);
-                                        Notification notification = builder.build();
-                                        // Log.d("ss","ss");
-                                        mNotificationManager = (NotificationManager) mContext.getSystemService(android.content.Context.NOTIFICATION_SERVICE);
-                                        mNotificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-                                        mNotificationManager.notify(0, notification);
-                                    }
-
-                                } else {
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
-                    } else
-                            return;
+        AVQuery<AVObject> avQuery = new AVQuery<>("theDiaryMessage");
+        avQuery.whereEqualTo("author", AVUser.getCurrentUser().get("username")
+                .toString());
+        avQuery.orderByDescending("createdAt");
+        avQuery.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+                if (e == null) {
+                    Log.d("test", Integer.toString(itemcount) + " " + Integer.toString(list.size()));
+                    if (itemcount < list.size()) {
+                        editor.putInt(AVUser.getCurrentUser().getUsername(), list.size());
+                        editor.commit();
+                        itemcount = list.size();
+                        Notification.Builder builder = new Notification.Builder(mContext);
+                        builder.setContentTitle("一条新消息")
+                                .setTicker("一条新消息")
+                                .setContentText("有人回复了你")
+                                .setSmallIcon(R.mipmap.app_logo)
+                                .setAutoCancel(true);
+                        PendingIntent pIntent = PendingIntent.getActivity(mContext, 0, new Intent(mContext, NavigationPage.class), PendingIntent.FLAG_UPDATE_CURRENT);
+                        builder.setContentIntent(pIntent);
+                        Notification notification = builder.build();
+                        // Log.d("ss","ss");
+                        mNotificationManager = (NotificationManager) mContext.getSystemService(android.content.Context.NOTIFICATION_SERVICE);
+                        mNotificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+                        mNotificationManager.notify(0, notification);
                     }
-                };
 
-
+                } else {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
+
 
     public void stopservice(Context c){
         Intent iService=new Intent(c,MyService.class);
