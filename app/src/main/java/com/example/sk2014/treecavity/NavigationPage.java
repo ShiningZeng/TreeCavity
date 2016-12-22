@@ -1,6 +1,10 @@
 package com.example.sk2014.treecavity;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +23,8 @@ import java.util.List;
 
 import datastruct.Diary;
 import datastruct.DiaryMessage;
+import pushservice.MyService;
+
 import android.widget.LinearLayout;
 
 import com.avos.avoscloud.AVException;
@@ -27,11 +33,28 @@ import com.avos.avoscloud.PushService;
 import com.avos.avoscloud.SaveCallback;
 
 public class NavigationPage extends AppCompatActivity {
+    private MyService ms;
+    private Context context;
+    private ServiceConnection sc = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            ms = ((MyService.MyBinder) iBinder).getService();
+        }
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_page);
+        context = NavigationPage.this;
+        ms = new MyService(context);
+        ms.request();
+
+
 
         LinearLayout edit_button = (LinearLayout) findViewById(R.id.edit_button);
         edit_button.setOnClickListener(new View.OnClickListener() {

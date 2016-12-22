@@ -72,7 +72,7 @@ public class MyService extends Service {
             task = new TimerTask() {
                 @Override
                 public void run() {
-                    Log.d("a","m");
+                    Log.d("test", "lala");
                     AVQuery<AVObject> avQuery = new AVQuery<>("theDiaryMessage");
                     avQuery.whereEqualTo("author", AVUser.getCurrentUser().get("username")
                             .toString());
@@ -82,21 +82,20 @@ public class MyService extends Service {
                         public void done(List<AVObject> list, AVException e) {
                             if (e == null) {
                                 if (itemcount < list.size()) {
-                                    editor.putInt("listitem", list.size());
+                                    editor.putInt(AVUser.getCurrentUser().getUsername(), list.size());
                                     editor.commit();
                                     itemcount = list.size();
                                     Notification.Builder builder = new Notification.Builder(mContext);
                                     builder.setContentTitle("一条新消息")
                                             .setTicker("一条新消息")
                                             .setContentText("有人回复了你")
-                                            .setSmallIcon(R.mipmap.ic_launcher)
+                                            .setSmallIcon(R.mipmap.app_logo)
                                             .setAutoCancel(true);
                                     PendingIntent pIntent = PendingIntent.getActivity(mContext, 0, new Intent(mContext,NavigationPage.class), PendingIntent.FLAG_UPDATE_CURRENT);
                                     builder.setContentIntent(pIntent);
-                                    NotificationManager manager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
                                     Notification notification = builder.build();
 
-                                    Log.d("ss","ss");
+                                   // Log.d("ss","ss");
                                     mNotificationManager = (NotificationManager) mContext.getSystemService(android.content.Context.NOTIFICATION_SERVICE);
 
                                     mNotificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
