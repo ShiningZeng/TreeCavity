@@ -48,9 +48,9 @@ public class MyService extends Service {
         mContext = context;
         sharedPreferences = context.getSharedPreferences("diary1",Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        itemcount = sharedPreferences.getInt("listitem", 0);
+        itemcount = sharedPreferences.getInt(AVUser.getCurrentUser().getUsername(), 0);
         if (itemcount == 0) {
-            editor.putInt("listitem", 0);
+            editor.putInt(AVUser.getCurrentUser().getUsername(), 0);
             editor.commit();
         }
 
@@ -63,7 +63,7 @@ public class MyService extends Service {
     public void startTime() {
         if (timer != null && task != null)
 // 10秒以后执行任务；
-            timer.schedule(task, 1000, 5000);
+            timer.schedule(task, 1000, 30000);
     }
     public  void initTime() {
         if (timer == null)
