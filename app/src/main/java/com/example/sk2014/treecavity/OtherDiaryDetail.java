@@ -143,7 +143,7 @@ public class OtherDiaryDetail extends AppCompatActivity {
                     for (AVObject obj : list) {
                         DiaryMessage diaryMessage = new DiaryMessage(
 //                                diary.author,
-                                "",
+                                " ",
                                 diary.objectId,
 //                                obj.getString("messageOwner"),
                                 "匿名用户",
