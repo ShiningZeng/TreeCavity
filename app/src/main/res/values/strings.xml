@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">TreeCavity</string>
-    <string name="username_hint">用户名：</string>
-    <string name="password_hint">密码：</string>
+    <string name="username_hint">用户名</string>
+    <string name="password_hint">密码</string>
     <string name="login">登录</string>
     <string name="register">注册</string>
     <string name="register_hint">马上注册一个</string>
@@ -18,4 +18,5 @@
     <string name="monthDiaryNumber">本月总数</string>
     <string name="yearDiaryNumber">本年总数</string>
     <string name="totalDiaryNumber">全部</string>
+    <string name="confirmHint">再次确认密码</string>
 </resources>
