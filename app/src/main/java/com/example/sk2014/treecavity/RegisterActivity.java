@@ -29,6 +29,16 @@ public class RegisterActivity extends AppCompatActivity {
         passwordEdit = (EditText)findViewById(R.id.passwordEdit);
 
         Button submit = (Button)findViewById(R.id.submit);
+        TextView denglu = (TextView) findViewById(R.id.denglu);
+        if (denglu != null) {
+            denglu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                    RegisterActivity.this.finish();
+                }
+            });
+        }
 
         ImageView backToLogin = (ImageView) findViewById(R.id.back);
         if (backToLogin != null) {
