@@ -121,7 +121,7 @@
                     android:text="@string/no_account"
                     android:textColor="@color/dim_foreground_disabled_material_light" />
                 <TextView
-
+                    android:id="@+id/zhuce"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/register_hint"
