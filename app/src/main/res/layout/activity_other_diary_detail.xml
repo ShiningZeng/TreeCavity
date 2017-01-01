@@ -8,14 +8,14 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical">
-    <TextView
+    <customComponents.CustomFontTextView
         android:id="@+id/title"
         android:text="I'm coooooooding"
         android:paddingBottom="10dp"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    <TextView
+    <customComponents.CustomFontTextView
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -24,10 +24,12 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
+        <customComponents.CustomFontTextView
             android:id="@+id/author"
+            android:text="kawa"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"/>
         <TextView
             android:id="@+id/date"
             android:text="2016-12-10"
@@ -44,11 +46,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <Button
+        android:background="@color/buttonColor"
         android:id="@+id/submit"
         android:layout_gravity="right"
         android:text="评论"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="20dp"/>
     <ListView
         android:id="@+id/myListView"
         android:layout_width="wrap_content"
