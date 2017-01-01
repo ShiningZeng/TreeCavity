@@ -40,7 +40,16 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-
+        TextView zhuce = (TextView)findViewById(R.id.zhuce);
+        if (zhuce != null) {
+            zhuce.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(MainActivity.this, RegisterActivity.class));
+                    MainActivity.this.finish();
+                }
+            });
+        }
         ImageView register = (ImageView) findViewById(R.id.register);
         if (register != null) {
             register.setOnClickListener(new View.OnClickListener() {
