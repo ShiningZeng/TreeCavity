@@ -47,8 +47,13 @@ public class RegisterActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     TextView username = (TextView)findViewById(R.id.usernameEdit);
                     TextView password = (TextView)findViewById(R.id.passwordEdit);
+                    TextView passwordConfirm = (TextView)findViewById(R.id.passwordConfirm);
                     if (!username.getText().equals("") && !password.getText().equals("")) {
-                        registerUser();
+                        if (!passwordConfirm.getText().equals(password.getText())) {
+                            Toast.makeText(RegisterActivity.this, "两次输入的密码不一致", Toast.LENGTH_SHORT).show();
+                        }else {
+                            registerUser();
+                        }
                     } else {
                         Toast.makeText(RegisterActivity.this, "用户名和密码不能为空", Toast.LENGTH_SHORT).show();
                     }
