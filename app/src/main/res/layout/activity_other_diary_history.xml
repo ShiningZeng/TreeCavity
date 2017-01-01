@@ -72,7 +72,7 @@
                 <customComponents.CustomFontTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/monthDiaryNumber"
+                    android:text="@string/yearDiaryNumber"
                     android:textSize="18dp"
                     android:textColor="@color/deepBlue"
                     />
