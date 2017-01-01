@@ -78,6 +78,7 @@ public class RegisterActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     ((TextView)findViewById(R.id.usernameEdit)).setText("");
                     ((TextView)findViewById(R.id.passwordEdit)).setText("");
+                    ((TextView)findViewById(R.id.passwordConfirm)).setText("");
                 }
             });
         }
